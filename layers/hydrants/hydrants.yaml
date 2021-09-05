@@ -1,0 +1,15 @@
+layer:
+  id: "hydrants"
+  description: |
+      **hydrants** contains fire hydrants and there type
+  buffer_size: 4
+  srs: +proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over
+  fields:
+      type: Type of hydrant
+  datasource:
+    query: (SELECT geometry, type FROM layer_hydrants(!bbox!, z(!scale_denominator!))) AS t
+schema:
+  - ./hydrants.sql
+datasources:
+  - type: imposm3
+    mapping_file: ./mapping.yaml

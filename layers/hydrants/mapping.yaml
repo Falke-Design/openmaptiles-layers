@@ -1,0 +1,17 @@
+
+tables:
+  # etldoc: imposm3 -> osm_hydranten_point
+  hydranten_point:
+    type: geometry
+    fields:
+    - name: osm_id
+      type: id
+    - name: geometry
+      type: geometry
+    - key: fire_hydrant:type
+      name: type
+      type: string
+    type_mappings:
+      points:
+        emergency:
+          - fire_hydrant
