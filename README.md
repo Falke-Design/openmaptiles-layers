@@ -158,6 +158,9 @@ layer:
 | | | | | `OSM_key_name` | The OSM Key is used as name and contains all required or rejected OSM values as array or as list. To get / reject all elements they have the tag use `__any__`. |  `natural: [wood, land]` or `tourism: [__any__]` |
 | | | _resolve_wikidata |  | | TODO: WHAT IS THIS? | |
 
+
+TODO: When is `mapping: ` and when `type_mappings:` needed
+
 Sample:
 https://imposm.org/docs/imposm3/latest/mapping.html#example
 or:
@@ -230,7 +233,37 @@ Maybe with `make generate-devdoc`?
 
 ## Error handling
 
-| Error | Solution |
-| --- | --- |
-| `ERROR:  relation "osm_YOURTABLE_polygon" does not exist.` | You need to check if you have set the table corret in your `.sql` file and in your `mapping.yaml` file. Don't forget that in the `mapping.yaml` you need to set the table without `osm_`. |
+
+> ERROR:  relation "osm_YOURTABLE_polygon" does not exist.
+
+**Script:** `make` TODO: Check
+
+**Solution:** You need to check if you have set the table correct in your `.sql` file and in your `mapping.yaml` file. Don't forget that in the `mapping.yaml` you need to set the table without `osm_`.
+
+----
+
+> ERROR:  cannot change return type of existing function
+
+**Script:** `make import-sql`
+
+**Solution:** You need to recreate your DB with `destroy-db` or drop the function
+
+----
+
+> [Makefile:257: build/openmaptiles.tm2source/data.yml] Error 1
+
+**Script:** `make`
+
+**Solution:** Some of the layers / schemas are not valid. Comment out the layers in openmaptiles.yaml and find out which one throws the error.
+
+----
+
+>   File "/usr/src/app/import-wikidata", line 222, in find_tables
+      for table_name, table_def in mapping['tables'].items():
+  KeyError: 'tables'
+
+**Script:** `make import-wikidata`
+
+**Solution:** In the <layer>.yaml file the `mapping_file` value is not correct or the `mapping.yaml` has not the attribute `tables`
+
 
